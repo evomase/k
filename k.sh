@@ -562,28 +562,45 @@ k () {
 
 _k_bsd_to_ansi() {
   local foreground=$1 background=$2 foreground_ansi background_ansi
-  case $foreground in
-    a) foreground_ansi=30;;
-    b) foreground_ansi=31;;
-    c) foreground_ansi=32;;
-    d) foreground_ansi=33;;
-    e) foreground_ansi=34;;
-    f) foreground_ansi=35;;
-    g) foreground_ansi=36;;
-    h) foreground_ansi=37;;
-    x) foreground_ansi=0;;
-  esac
-  case $background in
-    a) background_ansi=40;;
-    b) background_ansi=41;;
-    c) background_ansi=42;;
-    d) background_ansi=43;;
-    e) background_ansi=44;;
-    f) background_ansi=45;;
-    g) background_ansi=46;;
-    h) background_ansi=47;;
-    x) background_ansi=0;;
-  esac
+  if [[ foreground = '[a-z]' ]]; then
+     case $foreground in
+      a) foreground_ansi=30;;
+      b) foreground_ansi=31;;
+      c) foreground_ansi=32;;
+      d) foreground_ansi=33;;
+      e) foreground_ansi=34;;
+      f) foreground_ansi=35;;
+      g) foreground_ansi=36;;
+      h) foreground_ansi=37;;
+      x) foreground_ansi=0;;
+    esac
+    case $background in
+      a) background_ansi=40;;
+      b) background_ansi=41;;
+      c) background_ansi=42;;
+      d) background_ansi=43;;
+      e) background_ansi=44;;
+      f) background_ansi=45;;
+      g) background_ansi=46;;
+      h) background_ansi=47;;
+      x) background_ansi=0;;
+    esac
+  else
+    foreground_ansi=1
+
+    case ${foreground:l} in
+      a) background_ansi=30;;
+      b) background_ansi=31;;
+      c) background_ansi=32;;
+      d) background_ansi=33;;
+      e) background_ansi=34;;
+      f) background_ansi=35;;
+      g) background_ansi=36;;
+      h) background_ansi=37;;
+      x) background_ansi=0;;
+    esac
+  fi
+
   printf "%s;%s" $background_ansi $foreground_ansi
 }
 
